@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<head>
+<title>Indpride Proprties - Contact Us</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<style>
+.success{
+	background: #D8FFC0;
+	padding: 5px 10px 5px 10px;
+	margin: 27px 0px 5px 0px;
+	border: none;
+	font-weight: bold;
+	color: #2E6800;
+	border-left: 3px solid #2E6800;
+}
+.error {
+	background: #FFE8E8;
+	padding: 5px 10px 5px 10px;
+	margin: 10px 0px 5px 0px;
+	border: none;
+	font-weight: bold;
+	color: #FF0000;
+	border-left: 3px solid #FF0000;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#submit-button3").click(function() { 
+       
+	    var proceed = true;
+        //simple validation at client's end
+        //loop through each field and we simply change border color to red for invalid fields		
+		$("#contact_list3 input[required=true], #contact_list3 textarea[required=true]").each(function(){
+			$(this).css('border-color',''); 
+			if(!$.trim($(this).val())){ //if this field is empty 
+				$(this).css('border-color',''); //change border color to red   
+				proceed = false; //set do not proceed flag
+			}
+			//check invalid email
+			var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
+			if($(this).attr("type")=="email" && !email_reg.test($.trim($(this).val()))){
+				$(this).css('border-color',''); //change border color to red   
+				proceed = false; //set do not proceed flag	
+				}
+			
+				
+		});
+       
+        if(proceed) //everything looks good! proceed...
+        {
+			//get input field values data to be sent to server
+            post_data = {
+				'user_name'		: $('input[name=name]').val(), 
+				'user_email'	: $('input[name=email]').val(), 
+				'phone_number'	: $('input[name=phone]').val(), 			
+				'msg'			: $('input[name=message]').val()
+
+			};
+            
+            //Ajax post data to server
+            $.post('contact.php', post_data, function(response){  
+				if(response.type == 'error'){ //load json data from server and output message     
+					output = '<div class="error">'+response.text+'</div>';
+					
+								
+				}else{
+				    output = '<div class="success">'+response.text+'</div>';
+					//reset values in all input fields
+						 $("#contact_list3  input[required=true], #contact_list3 textarea[required=true]").val(''); 			
+									
+									
+				}
+				$("#contact_list3 #contact_results3").hide().html(output).slideDown();
+				
+            }, 'json');
+			
+			
+			
+			
+        }
+    });
+    
+
+});
+</script>
+
+</head>
+<body>
+  <header>
+    <div class="container2">
+	  <div class="logo">
+	    <a href="index.html"><img src="images/indpride-logo.png" alt="indpride"/></a>
+	  </div>
+	
+	<div class="menu">
+	<ul>
+	   <li><a href="index.html">Home</a></li>
+	   <li><a href="#">About Us</a></li>
+	   <li><a href="current projects-Indpride-Properties.html">Current Projects</a>
+	   <ul>
+	      <li><a href="phase1-indpride-properties.html">Phase 1</a></li>
+	      <li><a href="phase2-indpride-properties.html">Phase 2</a></li>
+	   
+	   </ul>
+	   </li>
+	   <li><a href="#">Upcoming Projects</a></li>
+	   <li><a href="#">Contact Us</a></li>
+	
+	</ul>
+	</div>
+	
+	</div>
+   
+  </header>
+<div class="clear"></div>
+
+ <div class="inner_banner">
+    
+    <img src="images/real-estate-property-indpride-small.jpg" alt="real-estate-property-indpride"/>
+  
+    <div class="container2">
+		 <div class="inner_banner_text1">
+			<p>BUILDING EMINENT INFRASTRUCTURE</p><span><br></span><p>AT INTERNATIONAL STANDARDS IN INDIA</p>
+		  
+		 </div>
+	
+	</div>
+  
+  
+  </div>
+<div class="clear"></div>
+
+
+<div class="clear"></div>
+
+<div class="outer_container">
+
+<div class="container">
+<!--<div class="navigation"><a href="index.html">Home</a>  &raquo; Contact Us</div>-->
+  
+  <div class="clear"></div>
+  
+  <div class="contact_page">
+  <h1>Contact Us</h1>
+  </div>
+  
+  
+  <div class="content">
+   
+   
+   
+    <div class="contact_form_main">
+ 
+    <div class="wrapper conform">
+		<div class="login">
+		
+		 <div id="contact_list3">
+		
+		<input type="text" placeholder="Name" name="name"/><br />
+        <input type="text" placeholder="Email" name="email"/><br />
+        <input type="text" placeholder="Phone" name="phone"/><br />
+        <input type="text" placeholder="Message" name="msg"/><br />
+        <input type="submit" value="Send" class="submit" name="submit" id="submit-button3"/>
+		
+		<div id="contact_results3" style="clear:both;" ></div>
+        </div>
+    
+	</div>
+  </div>
+	
+	
+	<div class="location_address">
+	    	
+		<h5>INDPRIDE PROPERTIES</h5>
+		<p> No 32, 4th Cross , <br>
+		L. Ramakrishnaiah Layout, <br>
+		 Malagala Nagarabhavi 2nd Stage,<br>
+		 Bangalore - 560 091</p>
+		        		 
+		<p><strong>Tel : </strong>+91 99450 77543 / +91 88677 72499 / +91 97437 92512</p>
+		<p><strong>Email :</strong> inpride.properties@gmail.com / info@inprideproperties.in</p>
+		<p><strong>Website :</strong> www.indproperties.co.in </p>
+	
+	</div>
+    	
+	<div class="clear"></div>
+	
+	</div>
+    
+  </div>
+ </div> 
+ </div>
+<div class="map">
+	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.53641222203!2d77.5827925!3d12.937490100000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15966ce8494d%3A0x7d1435db4e999c96!2s14th+Cross+Rd%2C+2nd+Block%2C+Jaya+Nagar+East%2C+Jayanagar%2C+Bengaluru%2C+Karnataka+560011!5e0!3m2!1sen!2sin!4v1440682299010" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+	
+</div> 
+<div class="clear"></div>
+<!--#include file="footer.shtml" -->
+
+</body>
